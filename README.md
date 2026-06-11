@@ -24,6 +24,12 @@ python3
 ```
 make
 ```
+**Windows (MinGW / MSYS2)**
+> **Note:** `mingw32-make` may fail on the `chmod` step (which is not needed on Windows). If so, compile directly with `g++`:
+```bash
+> g++ src/LinearFold.cpp -std=c++11 -O3 -Dlv -Dis_cube_pruning -Dis_candidate_list -o bin/linearfold_v.exe
+> g++ src/LinearFold.cpp -std=c++11 -O3 -Dis_cube_pruning -Dis_candidate_list -o bin/linearfold_c.exe
+> ```
 
 ## To Run
 The LinearFold parser can be run with:

@@ -5,6 +5,8 @@ import subprocess
 import sys
 import os
 
+_IS_WINDOWS = sys.platform.startswith('win')
+
 FLAGS = flags.FLAGS
 
 def setgflags():
@@ -39,7 +41,10 @@ def main():
     dangles = str(FLAGS.dangles)    
 
     path = os.path.dirname(os.path.abspath(__file__))
-    cmd = ["%s/%s" % (path, ('bin/linearfold_v' if use_vienna else 'bin/linearfold_c')), beamsize, is_sharpturn, is_verbose, is_eval, is_constraints, zuker_subopt, delta, shape_file_path, is_fasta, dangles]
+    binary = 'bin/linearfold_v' if use_vienna else 'bin/linearfold_c'
+    if _IS_WINDOWS:
+        binary += '.exe'
+    cmd = [os.path.join(path, binary), beamsize, is_sharpturn, is_verbose, is_eval, is_constraints, zuker_subopt, delta, shape_file_path, is_fasta, dangles]
     subprocess.call(cmd, stdin=sys.stdin)
     
 if __name__ == '__main__':
